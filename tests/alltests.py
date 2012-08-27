@@ -12,8 +12,11 @@ def boslog(msg):
     if verbose:
         print msg
 
+def led_monitor_value():
+    return c_uint.in_dll(led, "_led")
 
 class BOSTest_led(unittest.TestCase):
+
     def test_turn_onoff(self):
         '''
         void led_turn_on(unsigned int c);
@@ -23,7 +26,12 @@ class BOSTest_led(unittest.TestCase):
         v = led.get_value();
         print "after turnon %x" % v
         assert v == 1, "led should be off"
+
+        # alternative way to get _led value
+        print "%x" % led_monitor_value().value;
+
         led.turn_off()
+
         v = led.get_value();
         print "after turnoff %x" % v
         assert v == 0, "led should be on"
