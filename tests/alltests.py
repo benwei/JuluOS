@@ -16,12 +16,17 @@ def boslog(msg):
 class BOSTest_led(unittest.TestCase):
     def test_turn_onoff(self):
         '''
-        const char *led_turn_on(unsigned char c);
+        void led_turn_on(unsigned int c);
+        void led_turn_off(unsigned int c);
         '''
-        led.turn_on(c_char(0))
-        assert led._led == 0, "led should be off"
-	led.turn_off(c_char(1))
-        assert led._led == 0, "led should be on"
+        led.turn_on()
+        v = led.get_value();
+        print "after turnon %x" % v
+        assert v == 1, "led should be off"
+        led.turn_off()
+        v = led.get_value();
+        print "after turnoff %x" % v
+        assert v == 0, "led should be on"
 
 def suite_led():
     bosTestSuite = unittest.makeSuite(BOSTest_led, 'test')
