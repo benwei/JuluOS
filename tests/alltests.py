@@ -35,9 +35,9 @@ class BOSTest_leds(unittest.TestCase):
 
         leds.turn_off(c_uint(9))
 
-        v = leds.get_value(c_uint(9));
-        print "after turnoff %x" % v
-        assert v == 0, "led 9 should be on"
+    def test_turn_onoff(self):
+        r = leds.turn_on(c_uint(100))
+        assert r == -1, "led 100 not existed"
 
 
 def suite_leds():
