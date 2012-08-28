@@ -35,7 +35,7 @@ class BOSTest_leds(unittest.TestCase):
 
         leds.turn_off(c_uint(9))
 
-    def test_turn_onoff(self):
+    def test_turn_outbound(self):
         r = leds.turn_on(c_uint(100))
         assert r == -1, "led 100 not existed"
 

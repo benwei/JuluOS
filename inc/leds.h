@@ -1,10 +1,10 @@
 #ifndef __LED_H
 #define __LED_H
 
-void
+int
 turn_on(unsigned int num);
 
-void
+int
 turn_off(unsigned int num);
 
 #endif /* __LED_H */
