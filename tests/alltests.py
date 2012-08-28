@@ -2,8 +2,8 @@ import unittest,os
 from ctypes import *
 
 app_path = os.path.dirname(os.path.abspath(__file__))
-libpathname = os.path.join(app_path, "./libled.so")
-led = CDLL(libpathname);
+libpathname = os.path.join(app_path, "./libleds.so")
+leds = CDLL(libpathname);
 
 verbose = 0
 
@@ -12,36 +12,40 @@ def boslog(msg):
     if verbose:
         print msg
 
-def led_monitor_value():
-    return c_uint.in_dll(led, "_led")
+def leds_monitor_value():
+    return c_uint.in_dll(leds, "_leds")
 
-class BOSTest_led(unittest.TestCase):
+class BOSTest_leds(unittest.TestCase):
 
     def test_turn_onoff(self):
         '''
-        void led_turn_on(unsigned int c);
-        void led_turn_off(unsigned int c);
+        void leds_turn_on(unsigned int c);
+        void leds_turn_off(unsigned int c);
         '''
-        led.turn_on()
-        v = led.get_value();
+        leds.turn_on(c_uint(9))
+        v = leds.get_value(c_uint(9));
         print "after turnon %x" % v
-        assert v == 1, "led should be off"
+        assert v == 1, "led 9 should be off"
 
-        # alternative way to get _led value
-        print "%x" % led_monitor_value().value;
+        # alternative way to get _leds value
+        print "%x" % leds_monitor_value().value;
 
-        led.turn_off()
+        v = leds.get_value(c_uint(0));
+        assert v == 0, "led 0 should be off"
 
-        v = led.get_value();
+        leds.turn_off(c_uint(9))
+
+        v = leds.get_value(c_uint(9));
         print "after turnoff %x" % v
-        assert v == 0, "led should be on"
+        assert v == 0, "led 9 should be on"
 
-def suite_led():
-    bosTestSuite = unittest.makeSuite(BOSTest_led, 'test')
+
+def suite_leds():
+    bosTestSuite = unittest.makeSuite(BOSTest_leds, 'test')
     return bosTestSuite
 
 def main():
-    suite1 = suite_led()
+    suite1 = suite_leds()
     alltests = unittest.TestSuite((suite1))
     runner = unittest.TextTestRunner()
     runner.run(alltests);

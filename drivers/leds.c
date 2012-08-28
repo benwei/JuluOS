@@ -1,23 +1,23 @@
-#include "led.h"
+#include "leds.h"
 
-unsigned int _led;
+unsigned int _leds;
 
 void
 turn_on(void)
 {
-	_led = 1;
+	_leds = 1;
 }
 
 void
 turn_off(void)
 {
-	_led = 0;
+	_leds = 0;
 }
 
 
 unsigned int
 get_value(void)
 {
-	return _led;
+	return _leds;
 }
 

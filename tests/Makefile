@@ -1,8 +1,8 @@
-CFILES= ../drivers/led.c
+CFILES= ../drivers/leds.c
 CFLAGS+=-I ../inc
 
 OBJS=$(CFILES:.c=.o)
-LIBLED_SHARED = libled.so
+LIBLED_SHARED = libleds.so
 
 all: $(LIBLED_SHARED)
 	python alltests.py
